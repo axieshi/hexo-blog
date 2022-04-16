@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+    
+    <title>想到再説啦</title>
+
+    <meta name="description" content="想到再説啦">
+    <meta name="keywords" content="">
+
+    
+
+
+
+    <meta property="og:type" content="website"/>
+    <meta property="og:title" content=""/>
+    <meta property="og:description" content=""/>
+    <meta property="og:locale" content="zh-CN" />
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https://weiduni.tk/index.html" />
+    <meta property="og:site_name" content="啊些事" />
+    <meta property="article:publisher" content="" />
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "WebPage",
+            "name": "",
+            "description": "",
+            "publisher": {
+                "@type": "Organization",
+                "name": "啊些事"
+            },
+        }
+    </script>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+<link rel="stylesheet" href="/dist/build.css?v=1646451311888.css">
+
+
+    
+<link rel="stylesheet" href="/dist/custom.css?v=1646451311888.css">
+
+
+    <script>
+        window.isPost = false
+        window.aomori = {
+            
+            
+            
+        }
+        window.aomori_logo_typed_animated = false
+        window.aomori_search_algolia = false
+
+    </script>
+
+<meta name="generator" content="Hexo 6.1.0"></head>
+
+<body>
+
+    <div class="container">
+    <header class="header">
+        <div class="header-type">
+            
+            <div class="header-type-inner">
+                
+                    <a class="header-type-title" href="/">想到再説啦</a>
+                
+    
+                
+            </div>
+        </div>
+        <div class="header-menu">
+            <div class="header-menu-inner">
+                
+            </div>
+            <div class="header-menu-social">
+                
+            </div>
+        </div>
+
+        <div class="header-menu-mobile">
+            <div class="header-menu-mobile-inner" id="mobile-menu-open">
+                <i class="icon icon-menu"></i>
+            </div>
+        </div>
+    </header>
+
+    <div class="header-menu-mobile-menu">
+        <div class="header-menu-mobile-menu-bg"></div>
+        <div class="header-menu-mobile-menu-wrap">
+            <div class="header-menu-mobile-menu-inner">
+                <div class="header-menu-mobile-menu-close" id="mobile-menu-close">
+                    <i class="icon icon-cross"></i>
+                </div>
+                <div class="header-menu-mobile-menu-list">
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+    <div class="container">
+        <div class="main">
+            <section class="inner">
+                <section class="inner-main">
+                    <div class="index">
+  
+    
+      <article
+id="post-搭建个人博客Docker+Nginx+Hexo"
+class="article article-type-post"
+>
+
+
+
+<div class="article-inner">
+    
+
+    <div class="article-body">
+    <header class="article-title">
+        <a href="/2022/03/15/%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2Docker+Nginx+Hexo/">Docker下搭建Nginx+Hexo个人博客</a>
+    </header>
+    <div class="article-entry post-inner-html">
+        
+        <h3 id="开篇"><a href="#开篇" class="headerlink" title="开篇"></a>开篇</h3><pre><code>本文内容仅作为练手与折腾，也是结合网上大佬的经验分享进行整理！（看得再多，不如实践出真章）
+</code></pre>
+<ul>
+<li><h3 id="Docker：环境隔离、资源复用。"><a href="#Docker：环境隔离、资源复用。" class="headerlink" title="Docker：环境隔离、资源复用。"></a>Docker：环境隔离、资源复用。</h3></li>
+<li><h3 id="Hexo：快速、简洁且高效的博客框架"><a href="#Hexo：快速、简洁且高效的博客框架" class="headerlink" title="Hexo：快速、简洁且高效的博客框架"></a>Hexo：快速、简洁且高效的博客框架</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo">GitHub: Tommy Chen</a></li>
+</ul>
+</li>
+<li><p><strong>想法</strong>：</p>
+<ul>
+<li>Hexo容器内产生的静态资源文件，宿主机目录内同步生成</li>
+<li>Nginx容器与宿主机的映射，容器内也同步Hexo的静态资源文件</li>
+<li>搭配GitHub，文章随处无障碍提交更新</li>
+</ul>
+</li>
+<li><p><strong>使用环境&amp;应用</strong>：</p>
+<ul>
+<li>CentOS 7.9 + Docker + Hexo + Nginx + Git
+        
+    </div>
+    </div>
+
+    <div class="article-badge">
+        
+        
+    </div>
+
+</div>
+
+<footer class="article-footer">
+    <div class="article-more-info">
+    <div class="article-date">
+  <time datetime="2022-03-15T07:58:05.000Z" itemprop="datePublished">2022-03-15</time>
+</div>
+    
+        <div class="article-category">
+        <a class="article-category-link" href="/categories/%E6%97%A5%E5%B8%B8%E6%8D%A3%E9%BC%93/">日常捣鼓</a>
+        </div>
+    
+    
+    </div>
+</footer>
+
+</article>
+
+    
+  
+    
+      <article
+id="post-水电改造之篇二"
+class="article article-type-post"
+>
+
+
+
+<div class="article-inner">
+    
+
+    <div class="article-body">
+    <header class="article-title">
+        <a href="/2022/01/31/%E6%B0%B4%E7%94%B5%E6%94%B9%E9%80%A0%E4%B9%8B%E7%AF%87%E4%BA%8C/">水电改造之篇二</a>
+    </header>
+    <div class="article-entry post-inner-html">
+        
+        <p>（我想想哈，该怎么写？不会止步于开头了把？？）</p>
+<p><strong>今年是虎称王，新的一年里祝大家生龙活虎、虎虎生威！！虎头虎脑!？？咳咳…如标题，这是第二篇，上一篇记录是在2020年7月，主要记录自己所做的有意义的一些事；不过，其实我更想以时间线去记录，不论事大小，毕竟一年里肯定不止那几件事，但奈何我记性和写作能力是两座大山，无法逾越！（本文不长，图占位置多，有兴趣可以瞧瞧，足以看出我对生活的态度）</strong></p>
+<pre><code>第二篇依旧以图文形式记录，具体响应下上一篇立下的flag：
+</code></pre>
+<p><img src="/images/%E6%B0%B4%E7%94%B5%E6%94%B9%E9%80%A0%E4%B9%8B%E7%AF%87%E4%BA%8C0.png"></p>
+        
+    </div>
+    </div>
+
+    <div class="article-badge">
+        
+        
+    </div>
+
+</div>
+
+<footer class="article-footer">
+    <div class="article-more-info">
+    <div class="article-date">
+  <time datetime="2022-01-31T16:08:03.000Z" itemprop="datePublished">2022-02-01</time>
+</div>
+    
+        <div class="article-category">
+        <a class="article-category-link" href="/categories/%E7%82%B9%E6%BB%B4%E7%94%9F%E6%B4%BB/">点滴生活</a>
+        </div>
+    
+    
+    </div>
+</footer>
+
+</article>
+
+    
+  
+    
+      <article
+id="post-笔记本无线网卡修改MAC"
+class="article article-type-post"
+>
+
+
+
+<div class="article-inner">
+    
+
+    <div class="article-body">
+    <header class="article-title">
+        <a href="/2021/02/08/%E7%AC%94%E8%AE%B0%E6%9C%AC%E6%97%A0%E7%BA%BF%E7%BD%91%E5%8D%A1%E4%BF%AE%E6%94%B9MAC/">笔记本无线网卡修改MAC</a>
+    </header>
+    <div class="article-entry post-inner-html">
+        
+        <h4 id="思路：对于有线网卡，我们可以直接通过修改属性NetworkAddress的值达到目的；但鉴于无线网卡有些是没有这个值的，于是我们可以通过注册表为该无线网卡添加NetworkAddress值达到目的；"><a href="#思路：对于有线网卡，我们可以直接通过修改属性NetworkAddress的值达到目的；但鉴于无线网卡有些是没有这个值的，于是我们可以通过注册表为该无线网卡添加NetworkAddress值达到目的；" class="headerlink" title="思路：对于有线网卡，我们可以直接通过修改属性NetworkAddress的值达到目的；但鉴于无线网卡有些是没有这个值的，于是我们可以通过注册表为该无线网卡添加NetworkAddress值达到目的；"></a>思路：对于有线网卡，我们可以直接通过修改属性NetworkAddress的值达到目的；但鉴于无线网卡有些是没有这个值的，于是我们可以通过注册表为该无线网卡添加NetworkAddress值达到目的；</h4><p><img src="/images/%E7%AC%94%E8%AE%B0%E6%9C%AC%E6%97%A0%E7%BA%BF%E7%BD%91%E5%8D%A1%E4%BF%AE%E6%94%B9MAC1.png"></p>
+<h3 id="开始操作："><a href="#开始操作：" class="headerlink" title="开始操作："></a>开始操作：</h3><ol>
+<li><p>“WIN+R”打开运行 - regedit</p>
+</li>
+<li><p>打开该路径：</p>
+<blockquote>
+<p>计算机\HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Class{4d36e972-e325-11ce-bfc1-08002be10318}</p>
+</blockquote>
+</li>
+</ol>
+        
+    </div>
+    </div>
+
+    <div class="article-badge">
+        
+        
+    </div>
+
+</div>
+
+<footer class="article-footer">
+    <div class="article-more-info">
+    <div class="article-date">
+  <time datetime="2021-02-08T12:32:05.000Z" itemprop="datePublished">2021-02-08</time>
+</div>
+    
+        <div class="article-category">
+        <a class="article-category-link" href="/categories/%E6%97%A5%E5%B8%B8%E6%8D%A3%E9%BC%93/">日常捣鼓</a>
+        </div>
+    
+    
+    </div>
+</footer>
+
+</article>
+
+    
+  
+    
+      <article
+id="post-往与返之话有点多"
+class="article article-type-post"
+>
+
+
+
+<div class="article-inner">
+    
+
+    <div class="article-body">
+    <header class="article-title">
+        <a href="/2020/10/18/%E5%BE%80%E4%B8%8E%E8%BF%94%E4%B9%8B%E8%AF%9D%E6%9C%89%E7%82%B9%E5%A4%9A/">往与返之话有点多</a>
+    </header>
+    <div class="article-entry post-inner-html">
+        
+        <p>记某次高铁：</p>
+<p>这周回家里，也不是有什么事需要回，但肯定也不是说没事就不需要回。家里月饼爸妈拍照说太多吃不完，其实也不多，就三盒，言外之意大概是我们都不回吃不完。。</p>
+<p>回去前我在QQ上比较常聊的某群里是这样说的：下周又调休，我准备买个无人机 一个人去一趟张家界。。转头想到父母都没出去游玩过，我还是选择回家里吃月饼吧，So这便是衡量后的结果……</p>
+<p>桥圩公路两旁的路灯全都撤走了，我是不知道什么原因，是供电不够？烧钱？晚上出去整个黑麻麻的，桥头第一回合：俩人吃，那烤鱼真不行，鱼皮涂满了盐；桥头第二回合：三人，田螺煲、烧烤，聊了很多，有聊往日的回忆、未来的可期、x通的思想变化、矮哥的懒癌晚期……1点多该结束回去睡觉，我吃得最多，出来前还说肚子饱着呢。。</p>
+        
+    </div>
+    </div>
+
+    <div class="article-badge">
+        
+        
+    </div>
+
+</div>
+
+<footer class="article-footer">
+    <div class="article-more-info">
+    <div class="article-date">
+  <time datetime="2020-10-18T16:31:41.000Z" itemprop="datePublished">2020-10-19</time>
+</div>
+    
+        <div class="article-category">
+        <a class="article-category-link" href="/categories/%E7%82%B9%E6%BB%B4%E7%94%9F%E6%B4%BB/">点滴生活</a>
+        </div>
+    
+    
+    </div>
+</footer>
+
+</article>
+
+    
+  
+    
+      <article
+id="post-水电改造之篇一"
+class="article article-type-post"
+>
+
+
+
+<div class="article-inner">
+    
+
+    <div class="article-body">
+    <header class="article-title">
+        <a href="/2020/07/20/%E6%B0%B4%E7%94%B5%E6%94%B9%E9%80%A0%E4%B9%8B%E7%AF%87%E4%B8%80/">水电改造之篇一</a>
+    </header>
+    <div class="article-entry post-inner-html">
+        
+        <p>调休假过去一半，还有一周。。我把这周回家做的事标记下：<br><strong>（后面还有心情随记）</strong></p>
+<p>①空开漏电保护器更换  </p>
+<blockquote>
+<p><strong>这点就得说一下，要说可怕是很可怕的</strong><br><strong>地线没有，漏保又失效，我们家四口有过几次热水器是插电使用的</strong><br><strong>这保不齐漏电，后果不敢想象，这关乎人的生命安全</strong><br><strong>建议各位家中有设置漏保的，按照上面的操作，每个月按一次最为保险……</strong><br><img src="/images/%E6%B0%B4%E7%94%B5%E6%94%B9%E9%80%A0%E4%B9%8B%E7%AF%87%E4%B8%801.png"></p>
+</blockquote>
+        
+    </div>
+    </div>
+
+    <div class="article-badge">
+        
+        
+    </div>
+
+</div>
+
+<footer class="article-footer">
+    <div class="article-more-info">
+    <div class="article-date">
+  <time datetime="2020-07-20T02:01:33.000Z" itemprop="datePublished">2020-07-20</time>
+</div>
+    
+        <div class="article-category">
+        <a class="article-category-link" href="/categories/%E7%82%B9%E6%BB%B4%E7%94%9F%E6%B4%BB/">点滴生活</a>
+        </div>
+    
+    
+    </div>
+</footer>
+
+</article>
+
+    
+  
+
+  
+    <nav class="pagination">
+        <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/2/">Next</a>
+    </nav>
+  
+</div>
+
+                </section>
+            </section>
+
+            
+            <aside class="sidebar ">
+                
+
+
+<div class="widget" id="widget">
+    
+      
+    
+      
+  <div class="widget-wrap widget-cate">
+    <div class="widget-title"><span>Categories</span></div>
+    <div class="widget-inner">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">学习笔记</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%97%A5%E5%B8%B8%E6%8D%A3%E9%BC%93/">日常捣鼓</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%82%B9%E6%BB%B4%E7%94%9F%E6%B4%BB/">点滴生活</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%99%BE%E6%80%9D%E5%85%B6%E8%A7%A3/">百思其解</a></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+
+    
+      
+  <div class="widget-wrap widget-recent-posts">
+    <div class="widget-title"><span>Recent Posts</span></div>
+    <div class="widget-inner">
+      <ul>
+        
+          <li>
+            <a href="/2022/03/15/%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2Docker+Nginx+Hexo/">Docker下搭建Nginx+Hexo个人博客</a>
+          </li>
+        
+          <li>
+            <a href="/2022/01/31/%E6%B0%B4%E7%94%B5%E6%94%B9%E9%80%A0%E4%B9%8B%E7%AF%87%E4%BA%8C/">水电改造之篇二</a>
+          </li>
+        
+          <li>
+            <a href="/2021/02/08/%E7%AC%94%E8%AE%B0%E6%9C%AC%E6%97%A0%E7%BA%BF%E7%BD%91%E5%8D%A1%E4%BF%AE%E6%94%B9MAC/">笔记本无线网卡修改MAC</a>
+          </li>
+        
+          <li>
+            <a href="/2020/10/18/%E5%BE%80%E4%B8%8E%E8%BF%94%E4%B9%8B%E8%AF%9D%E6%9C%89%E7%82%B9%E5%A4%9A/">往与返之话有点多</a>
+          </li>
+        
+          <li>
+            <a href="/2020/07/20/%E6%B0%B4%E7%94%B5%E6%94%B9%E9%80%A0%E4%B9%8B%E7%AF%87%E4%B8%80/">水电改造之篇一</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+    
+      
+  <div class="widget-wrap widget-archive">
+    <div class="widget-title"><span>Archive</span></div>
+    <div class="widget-inner">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/">2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/">2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/">2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/">2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/">2018</a></li></ul>
+    </div>
+  </div>
+
+
+    
+</div>
+
+<div id="backtop"><i class="icon icon-arrow-up"></i></div>
+            </aside>
+            
+        </div>
+    </div>
+
+    <footer class="footer">
+    <div class="footer-wave">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#3c4859" fill-opacity="1" d="M0,160L60,181.3C120,203,240,245,360,240C480,235,600,181,720,186.7C840,192,960,256,1080,261.3C1200,267,1320,213,1380,186.7L1440,160L1440,320L1380,320C1320,320,1200,320,1080,320C960,320,840,320,720,320C600,320,480,320,360,320C240,320,120,320,60,320L0,320Z"></path></svg>
+    </div>
+
+    <!-- Please do not remove this -->
+    <!-- 开源不易，请勿删除 -->
+    <div class="footer-wrap">
+        <div class="footer-inner"> 
+            想到再説啦 &copy; 2022<br>
+            Powered By Hexo · Theme By <a href="https://linhong.me/" target="_blank">Aomori</a> · <a href="https://github.com/lh1me/hexo-theme-aomori" target="_blank">Github</a>
+        </div>
+    </div>
+
+</footer>
+
+
+
+
+
+
+<script src="/dist/build.js?1646451311888.js"></script>
+
+
+<script src="/dist/custom.js?1646451311888.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+
+</html>

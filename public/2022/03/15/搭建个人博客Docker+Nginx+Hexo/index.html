@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+    
+    <title>Docker下搭建Nginx+Hexo个人博客 | 想到再説啦</title>
+
+    <meta name="description" content="&lt;h3 id=&#34;开篇&#34;&gt;&lt;a href=&#34;#开篇&#34; class=&#34;headerlink&#34; title=&#34;开篇&#34;&gt;&lt;/a&gt;开篇&lt;/h3&gt;&lt;pre&gt;&lt;code&gt;本文内容仅作为练手与折腾，也是结合网上大佬的经验分享进行整理！（看得再多，不如实践出真章）
+&lt;/code&gt;&lt;/pre&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;h3 id=&#34;Docker：环境隔离、资源复用。&#34;&gt;&lt;a href=&#34;#Docker：环境隔离、资源复用。&#34; class=&#34;headerlink&#34; title=&#34;Docker：环境隔离、资源复用。&#34;&gt;&lt;/a&gt;Docker：环境隔离、资源复用。&lt;/h3&gt;&lt;/li&gt;
+&lt;li&gt;&lt;h3 id=&#34;Hexo：快速、简洁且高效的博客框架&#34;&gt;&lt;a href=&#34;#Hexo：快速、简洁且高效的博客框架&#34; class=&#34;headerlink&#34; title=&#34;Hexo：快速、简洁且高效的博客框架&#34;&gt;&lt;/a&gt;Hexo：快速、简洁且高效的博客框架&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/hexojs/hexo&#34;&gt;GitHub: Tommy Chen&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;想法&lt;/strong&gt;：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Hexo容器内产生的静态资源文件，宿主机目录内同步生成&lt;/li&gt;
+&lt;li&gt;Nginx容器与宿主机的映射，容器内也同步Hexo的静态资源文件&lt;/li&gt;
+&lt;li&gt;搭配GitHub，文章随处无障碍提交更新&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;使用环境&amp;amp;应用&lt;/strong&gt;：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;CentOS 7.9 + Docker + Hexo + Nginx + Git">
+    <meta name="keywords" content="">
+
+    
+
+    <meta property="og:locale" content="zh-CN" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content= "Docker下搭建Nginx+Hexo个人博客 | 想到再説啦"  />
+    <meta property="og:description" content= "&lt;h3 id=&#34;开篇&#34;&gt;&lt;a href=&#34;#开篇&#34; class=&#34;headerlink&#34; title=&#34;开篇&#34;&gt;&lt;/a&gt;开篇&lt;/h3&gt;&lt;pre&gt;&lt;code&gt;本文内容仅作为练手与折腾，也是结合网上大佬的经验分享进行整理！（看得再多，不如实践出真章）
+&lt;/code&gt;&lt;/pre&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;h3 id=&#34;Docker：环境隔离、资源复用。&#34;&gt;&lt;a href=&#34;#Docker：环境隔离、资源复用。&#34; class=&#34;headerlink&#34; title=&#34;Docker：环境隔离、资源复用。&#34;&gt;&lt;/a&gt;Docker：环境隔离、资源复用。&lt;/h3&gt;&lt;/li&gt;
+&lt;li&gt;&lt;h3 id=&#34;Hexo：快速、简洁且高效的博客框架&#34;&gt;&lt;a href=&#34;#Hexo：快速、简洁且高效的博客框架&#34; class=&#34;headerlink&#34; title=&#34;Hexo：快速、简洁且高效的博客框架&#34;&gt;&lt;/a&gt;Hexo：快速、简洁且高效的博客框架&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/hexojs/hexo&#34;&gt;GitHub: Tommy Chen&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;想法&lt;/strong&gt;：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Hexo容器内产生的静态资源文件，宿主机目录内同步生成&lt;/li&gt;
+&lt;li&gt;Nginx容器与宿主机的映射，容器内也同步Hexo的静态资源文件&lt;/li&gt;
+&lt;li&gt;搭配GitHub，文章随处无障碍提交更新&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;使用环境&amp;amp;应用&lt;/strong&gt;：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;CentOS 7.9 + Docker + Hexo + Nginx + Git" />
+    <meta property="og:url" content="https://weiduni.tk/2022/03/15/%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2Docker+Nginx+Hexo/index.html" />
+    <meta property="og:site_name" content="" />
+    <meta property="article:author" content="啊些事" />
+    <meta property="article:publisher" content="" />
+    <meta property="og:description" content="&lt;h3 id=&#34;开篇&#34;&gt;&lt;a href=&#34;#开篇&#34; class=&#34;headerlink&#34; title=&#34;开篇&#34;&gt;&lt;/a&gt;开篇&lt;/h3&gt;&lt;pre&gt;&lt;code&gt;本文内容仅作为练手与折腾，也是结合网上大佬的经验分享进行整理！（看得再多，不如实践出真章）
+&lt;/code&gt;&lt;/pre&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;h3 id=&#34;Docker：环境隔离、资源复用。&#34;&gt;&lt;a href=&#34;#Docker：环境隔离、资源复用。&#34; class=&#34;headerlink&#34; title=&#34;Docker：环境隔离、资源复用。&#34;&gt;&lt;/a&gt;Docker：环境隔离、资源复用。&lt;/h3&gt;&lt;/li&gt;
+&lt;li&gt;&lt;h3 id=&#34;Hexo：快速、简洁且高效的博客框架&#34;&gt;&lt;a href=&#34;#Hexo：快速、简洁且高效的博客框架&#34; class=&#34;headerlink&#34; title=&#34;Hexo：快速、简洁且高效的博客框架&#34;&gt;&lt;/a&gt;Hexo：快速、简洁且高效的博客框架&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/hexojs/hexo&#34;&gt;GitHub: Tommy Chen&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;想法&lt;/strong&gt;：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Hexo容器内产生的静态资源文件，宿主机目录内同步生成&lt;/li&gt;
+&lt;li&gt;Nginx容器与宿主机的映射，容器内也同步Hexo的静态资源文件&lt;/li&gt;
+&lt;li&gt;搭配GitHub，文章随处无障碍提交更新&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;使用环境&amp;amp;应用&lt;/strong&gt;：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;CentOS 7.9 + Docker + Hexo + Nginx + Git" />
+    <meta name="twitter:title" content="Docker下搭建Nginx+Hexo个人博客 | 想到再説啦"/>
+    <meta name="twitter:description" content="&lt;h3 id=&#34;开篇&#34;&gt;&lt;a href=&#34;#开篇&#34; class=&#34;headerlink&#34; title=&#34;开篇&#34;&gt;&lt;/a&gt;开篇&lt;/h3&gt;&lt;pre&gt;&lt;code&gt;本文内容仅作为练手与折腾，也是结合网上大佬的经验分享进行整理！（看得再多，不如实践出真章）
+&lt;/code&gt;&lt;/pre&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;h3 id=&#34;Docker：环境隔离、资源复用。&#34;&gt;&lt;a href=&#34;#Docker：环境隔离、资源复用。&#34; class=&#34;headerlink&#34; title=&#34;Docker：环境隔离、资源复用。&#34;&gt;&lt;/a&gt;Docker：环境隔离、资源复用。&lt;/h3&gt;&lt;/li&gt;
+&lt;li&gt;&lt;h3 id=&#34;Hexo：快速、简洁且高效的博客框架&#34;&gt;&lt;a href=&#34;#Hexo：快速、简洁且高效的博客框架&#34; class=&#34;headerlink&#34; title=&#34;Hexo：快速、简洁且高效的博客框架&#34;&gt;&lt;/a&gt;Hexo：快速、简洁且高效的博客框架&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/hexojs/hexo&#34;&gt;GitHub: Tommy Chen&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;想法&lt;/strong&gt;：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Hexo容器内产生的静态资源文件，宿主机目录内同步生成&lt;/li&gt;
+&lt;li&gt;Nginx容器与宿主机的映射，容器内也同步Hexo的静态资源文件&lt;/li&gt;
+&lt;li&gt;搭配GitHub，文章随处无障碍提交更新&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;使用环境&amp;amp;应用&lt;/strong&gt;：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;CentOS 7.9 + Docker + Hexo + Nginx + Git"/>
+    <script type="application/ld+json">
+        {
+            "description": "&lt;h3 id=&#34;开篇&#34;&gt;&lt;a href=&#34;#开篇&#34; class=&#34;headerlink&#34; title=&#34;开篇&#34;&gt;&lt;/a&gt;开篇&lt;/h3&gt;&lt;pre&gt;&lt;code&gt;本文内容仅作为练手与折腾，也是结合网上大佬的经验分享进行整理！（看得再多，不如实践出真章）
+&lt;/code&gt;&lt;/pre&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;h3 id=&#34;Docker：环境隔离、资源复用。&#34;&gt;&lt;a href=&#34;#Docker：环境隔离、资源复用。&#34; class=&#34;headerlink&#34; title=&#34;Docker：环境隔离、资源复用。&#34;&gt;&lt;/a&gt;Docker：环境隔离、资源复用。&lt;/h3&gt;&lt;/li&gt;
+&lt;li&gt;&lt;h3 id=&#34;Hexo：快速、简洁且高效的博客框架&#34;&gt;&lt;a href=&#34;#Hexo：快速、简洁且高效的博客框架&#34; class=&#34;headerlink&#34; title=&#34;Hexo：快速、简洁且高效的博客框架&#34;&gt;&lt;/a&gt;Hexo：快速、简洁且高效的博客框架&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/hexojs/hexo&#34;&gt;GitHub: Tommy Chen&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;想法&lt;/strong&gt;：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Hexo容器内产生的静态资源文件，宿主机目录内同步生成&lt;/li&gt;
+&lt;li&gt;Nginx容器与宿主机的映射，容器内也同步Hexo的静态资源文件&lt;/li&gt;
+&lt;li&gt;搭配GitHub，文章随处无障碍提交更新&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;使用环境&amp;amp;应用&lt;/strong&gt;：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;CentOS 7.9 + Docker + Hexo + Nginx + Git",
+            "author": { "@type": "Person", "name": "啊些事" },
+            "@type": "BlogPosting",
+            "url": "https://weiduni.tk/2022/03/15/%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2Docker+Nginx+Hexo/index.html",
+            "publisher": {
+            "@type": "Organization",
+            "logo": {
+                "@type": "ImageObject",
+                "url": "https://weiduni.tkundefined"
+            },
+            "name": "啊些事"
+            },
+            "headline": "Docker下搭建Nginx+Hexo个人博客 | 想到再説啦",
+            "datePublished": "2022-03-15T07:58:05.000Z",
+            "mainEntityOfPage": {
+                "@type": "WebPage",
+                "@id": "https://weiduni.tk/2022/03/15/%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2Docker+Nginx+Hexo/index.html"
+            },
+            "@context": "http://schema.org"
+        }
+    </script>
+
+
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+<link rel="stylesheet" href="/dist/build.css?v=1646451311888.css">
+
+
+    
+<link rel="stylesheet" href="/dist/custom.css?v=1646451311888.css">
+
+
+    <script>
+        window.isPost = true
+        window.aomori = {
+            
+            
+            
+        }
+        window.aomori_logo_typed_animated = false
+        window.aomori_search_algolia = false
+
+    </script>
+
+<meta name="generator" content="Hexo 6.1.0"></head>
+
+<body>
+
+    <div class="container">
+    <header class="header">
+        <div class="header-type">
+            
+            <div class="header-type-inner">
+                
+                    <a class="header-type-title" href="/">想到再説啦</a>
+                
+    
+                
+            </div>
+        </div>
+        <div class="header-menu">
+            <div class="header-menu-inner">
+                
+            </div>
+            <div class="header-menu-social">
+                
+            </div>
+        </div>
+
+        <div class="header-menu-mobile">
+            <div class="header-menu-mobile-inner" id="mobile-menu-open">
+                <i class="icon icon-menu"></i>
+            </div>
+        </div>
+    </header>
+
+    <div class="header-menu-mobile-menu">
+        <div class="header-menu-mobile-menu-bg"></div>
+        <div class="header-menu-mobile-menu-wrap">
+            <div class="header-menu-mobile-menu-inner">
+                <div class="header-menu-mobile-menu-close" id="mobile-menu-close">
+                    <i class="icon icon-cross"></i>
+                </div>
+                <div class="header-menu-mobile-menu-list">
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+    <div class="container">
+        <div class="main">
+            <section class="inner">
+                <section class="inner-main">
+                    <div class="post">
+    <article id="post-cl21moatd000j31o33hp07st2" class="article article-type-post" itemscope
+    itemprop="blogPost">
+
+    <div class="article-inner">
+
+        
+          
+        
+        
+        
+
+        
+        <header class="article-header">
+            
+  
+    <h1 class="article-title" itemprop="name">
+      Docker下搭建Nginx+Hexo个人博客
+    </h1>
+  
+
+        </header>
+        
+
+        <div class="article-more-info article-more-info-post hairline">
+
+            <div class="article-date">
+  <time datetime="2022-03-15T07:58:05.000Z" itemprop="datePublished">2022-03-15</time>
+</div>
+
+            
+            <div class="article-category">
+                <a class="article-category-link" href="/categories/%E6%97%A5%E5%B8%B8%E6%8D%A3%E9%BC%93/">日常捣鼓</a>
+            </div>
+            
+
+            
+
+            
+
+        </div>
+
+        <div class="article-entry post-inner-html hairline" itemprop="articleBody">
+            <h3 id="开篇"><a href="#开篇" class="headerlink" title="开篇"></a>开篇</h3><pre><code>本文内容仅作为练手与折腾，也是结合网上大佬的经验分享进行整理！（看得再多，不如实践出真章）
+</code></pre>
+<ul>
+<li><h3 id="Docker：环境隔离、资源复用。"><a href="#Docker：环境隔离、资源复用。" class="headerlink" title="Docker：环境隔离、资源复用。"></a>Docker：环境隔离、资源复用。</h3></li>
+<li><h3 id="Hexo：快速、简洁且高效的博客框架"><a href="#Hexo：快速、简洁且高效的博客框架" class="headerlink" title="Hexo：快速、简洁且高效的博客框架"></a>Hexo：快速、简洁且高效的博客框架</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo">GitHub: Tommy Chen</a></li>
+</ul>
+</li>
+<li><p><strong>想法</strong>：</p>
+<ul>
+<li>Hexo容器内产生的静态资源文件，宿主机目录内同步生成</li>
+<li>Nginx容器与宿主机的映射，容器内也同步Hexo的静态资源文件</li>
+<li>搭配GitHub，文章随处无障碍提交更新</li>
+</ul>
+</li>
+<li><p><strong>使用环境&amp;应用</strong>：</p>
+<ul>
+<li>CentOS 7.9 + Docker + Hexo + Nginx + Git <span id="more"></span></li>
+</ul>
+</li>
+</ul>
+<h1 id="开始："><a href="#开始：" class="headerlink" title="开始："></a>开始：</h1><ul>
+<li><h2 id="Dcoker-CE"><a href="#Dcoker-CE" class="headerlink" title="Dcoker-CE"></a><strong>Dcoker-CE</strong></h2><ul>
+<li>安装，国内服务器推荐使用 <a target="_blank" rel="noopener" href="https://developer.aliyun.com/mirror/">阿里巴巴开源镜像站</a><pre><code class="sh">######step1:安装必要的一些系统工具
+sudo yum install -y yum-utils device-mapper-persistent-data lvm2
+######step2:添加软件源信息
+sudo yum-config-manager --add-repo https://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo
+######step3:
+sudo sed -i &#39;s+download.docker.com+mirrors.aliyun.com/docker-ce+&#39; /etc/yum.repos.d/docker-ce.repo
+######step4:更新并安装Docker-CE
+sudo yum makecache fast
+sudo yum -y install docker-ce
+######step4:开启Docker服务
+sudo service docker start
+注意：
+官方软件源默认启用了最新的软件，您可以通过编辑软件源的方式获取各个版本的软件包。
+例如官方并没有将测试版本的软件源置为可用，您可以通过以下方式开启。同理可以开启各种测试 版本等。
+vim /etc/yum.repos.d/docker-ce.repo
+将[docker-ce-test]下方的enabled=0修改为enabled=1
+安装指定版本的Docker-CE:
+Step 1: 查找Docker-CE的版本:
+yum list docker-ce.x86_64 --showduplicates | sort -r
+Loading mirror speeds from cached hostfile
+Loaded plugins: branch, fastestmirror, langpacks
+docker-ce.x86_64            17.03.1.ce-1.el7.centos            docker-ce-stable
+docker-ce.x86_64            17.03.0.ce-1.el7.centos            docker-ce-stable
+Available Packages
+Step2: 安装指定版本的Docker-CE: (VERSION例如上面的17.03.0.ce.1-1.el7.centos)
+sudo yum -y install docker-ce-[VERSION]
+</code></pre>
+</li>
+</ul>
+</li>
+<li><h2 id="Hexo"><a href="#Hexo" class="headerlink" title="Hexo"></a><strong>Hexo</strong></h2><ol>
+<li><p><strong>拉取node镜像（hexo基于nodejs环境）</strong> </p>
+<ul>
+<li>命令前加sudo获取root执行权限，本文服务器处于root用户，可忽略。</li>
+</ul>
+<pre><code class="sh">[root@centos ~]# sudo docker pull node
+Using default tag: latest
+latest: Pulling from library/node
+........
+Digest: sha256:3f8047ded7bb8e217a879e2d7aabe23d40ed7f975939a384a0f111cc041ea2ed
+Status: Downloaded newer image for node:latest
+</code></pre>
+</li>
+<li><p><strong>进入node镜像</strong></p>
+<ol>
+<li>查看镜像ID，并创建容器</li>
+<li>同时将本地目录&#x2F;root&#x2F;blog&#x2F;hexo-blog（先创建），映射到容器目录&#x2F;usr&#x2F;hexo-blog</li>
+<li>安装hexo-cli</li>
+</ol>
+<pre><code class="sh">[root@centos ~]#docker images -a
+REPOSITORY   TAG       IMAGE ID       CREATED      SIZE
+node         latest    8778d77035e2   2 days ago   991MB
+ 
+[root@centos ~]#docker run -itd -v /root/blog:/root/blog node
+ 
+[root@centos ~]#docker ps -a
+CONTAINER ID    IMAGE     ...     STATUS     PORTS     NAMES
+fccf0c8c6ad1     node     ...       Up                hexo-blog
+[root@centos ~]#docker exec -it fcc bash            ##进入容器
+root@fccf0c8c6a:/#npm install hexo-cli -g			##安装hexo-cli
+root@fccf0c8c6a:/#hexo init /root/blog/hexo-blog    ##在指定目录初始化hexo
+root@fccf0c8c6a:/#cd /root/blog/hexo-blog &amp;&amp; npm install
+root@fccf0c8c6a:/#hexo clean &amp;&amp; hexo g              ##清理缓存&amp;生成新的静态目录./public
+root@fccf0c8c6a:/#exit			                    ##退出容器回到宿主机
+</code></pre>
+</li>
+</ol>
+</li>
+<li><h2 id="Nginx"><a href="#Nginx" class="headerlink" title="Nginx"></a><strong>Nginx</strong></h2><ol>
+<li><p><strong>拉取Nginx镜像</strong></p>
+<pre><code class="sh">[root@centos ~]# sudo docker pull nginx
+Using default tag: latest
+latest: Pulling from library/nginx
+........
+Status: Downloaded newer image for nginx:latest
+docker.io/library/nginx:latest
+</code></pre>
+</li>
+<li><p><strong>进入Nginx容器</strong></p>
+<ol>
+<li><p>查看镜像ID，并创建容器</p>
+<pre><code class="sh">[root@centos ~]# docker images -a
+REPOSITORY   TAG       IMAGE ID       CREATED       SIZE
+node         latest    8778d77035e2   2 days ago    991MB
+nginx        latest    12766a6745ee   2 weeks ago   142MB
+</code></pre>
+</li>
+<li><p>映射对应端口和目录: -p , -v</p>
+<ul>
+<li>看个人需求，我这里直接映射80端口</li>
+<li>静态文件目录：&#x2F;root&#x2F;blog&#x2F;hexo-blog&#x2F;public，映射到nginx容器目录：&#x2F;usr&#x2F;share&#x2F;nginx&#x2F;html</li>
+</ul>
+<pre><code class="sh">[root@centos ~]# docker run -itd -p 80:80 -v /root/blog/hexo-blog/public:/usr/share/nginx/html nginx
+[root@VM-4-8-centos hexo-blog]# docker ps -a		##查看容器列表，up状态即可
+CONTAINER ID     IMAGE    ...   STATUS               PORTS                     ...
+2106814a64de     nginx    ...     up      0.0.0.0:81-&gt;80/tcp, :::81-&gt;80/tcp    ...
+fccf0c8c6ad1     node     ...     up                                           ...
+</code></pre>
+</li>
+</ol>
+</li>
+<li><p><strong>搭建完成</strong></p>
+<ul>
+<li>如果完成后无法访问，这时候就要检查下主机防火墙是否对端口未放行，还有像腾讯云主机，它在官网控制台有自己的安全组规则，需要手动设置放行。</li>
+<li>浏览器访问 <a href="http://x.x.x.x:port，成功如图：">http://x.x.x.x:port，成功如图：</a><br> <img src="/images/%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2Docker+Nginx+Hexo1.png"></li>
+</ul>
+</li>
+</ol>
+</li>
+<li><h2 id="文章更新、自定义…"><a href="#文章更新、自定义…" class="headerlink" title="文章更新、自定义…"></a><strong>文章更新、自定义…</strong></h2><ol>
+<li><p>发表一篇文章，容器内执行</p>
+<pre><code class="sh">root@fccf0c8c6ad1:# cd /root/blog/hexo-blog
+root@fccf0c8c6ad1:# hexo new &quot;hello&quot;
+INFO  Validating config
+INFO  Created: /blog/source/_posts/hello.md		##显示成功创建一篇名为&quot;hello.md&quot;的文章
+</code></pre>
+</li>
+<li><p>增加文章等涉及静态资源的改动时，需要让Hexo重新生成一份，以便更新页面显示</p>
+<pre><code class="sh">root@fccf0c8c6ad1:# cd /root/blog/hexo-blog
+root@b1b0d1107917:# hexo clean &amp;&amp; hexo g
+[root@centos ~]# docker restart 21		##需要重启Nginx容器进行资源同步
+</code></pre>
+</li>
+<li><p>更加详细方法、教程，如更换主题等，请移步<a href="(https://hexo.io/zh-cn/)">Hexo作者主页</a></p>
+</li>
+</ol>
+</li>
+<li><h2 id="GitHub（忙，待补充-）"><a href="#GitHub（忙，待补充-）" class="headerlink" title="GitHub（忙，待补充..）"></a><strong>GitHub（忙，待补充..）</strong></h2></li>
+</ul>
+<h2 id="尾声：整理不易，欢迎静心敲之；同时希望自己坚持学习、持续输出，与博客一同成长！！"><a href="#尾声：整理不易，欢迎静心敲之；同时希望自己坚持学习、持续输出，与博客一同成长！！" class="headerlink" title="尾声：整理不易，欢迎静心敲之；同时希望自己坚持学习、持续输出，与博客一同成长！！"></a>尾声：整理不易，欢迎静心敲之；同时希望自己坚持学习、持续输出，与博客一同成长！！</h2><ul>
+<li>待有时间再研究吧步骤整理成自动化脚本。</li>
+</ul>
+
+        </div>
+
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+<nav class="article-nav">
+  
+  
+    <a href="/2022/01/31/%E6%B0%B4%E7%94%B5%E6%94%B9%E9%80%A0%E4%B9%8B%E7%AF%87%E4%BA%8C/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-caption">上一篇</div>
+      <div class="article-nav-title">水电改造之篇二</div>
+    </a>
+  
+</nav>
+
+
+    <section class="share">
+        <div class="share-title">分享</div>
+        <a class="share-item" target="_blank"
+            href="https://twitter.com/share?text=Docker下搭建Nginx+Hexo个人博客 - 想到再説啦&url=https://weiduni.tk/2022/03/15/%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2Docker+Nginx+Hexo/">
+            <box-icon type='logo' name='twitter'></box-icon>
+        </a>
+        <a class="share-item" target="_blank"
+            href="https://www.facebook.com/sharer.php?title=Docker下搭建Nginx+Hexo个人博客 - 想到再説啦&u=https://weiduni.tk/2022/03/15/%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2Docker+Nginx+Hexo/">
+            <box-icon name='facebook-square' type='logo' ></box-icon>
+        </a>
+        <!-- <a class="share-item" target="_blank"
+            href="https://service.weibo.com/share/share.php?title=Docker下搭建Nginx+Hexo个人博客 - 想到再説啦&url=https://weiduni.tk/2022/03/15/%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2Docker+Nginx+Hexo/&pic=">
+            <div class="n-icon n-icon-weibo"></div>
+        </a> -->
+    </section>
+
+</article>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+                </section>
+            </section>
+
+            
+            <aside class="sidebar ">
+                
+
+
+<div class="widget" id="widget">
+    
+      
+  <div class="widget-wrap">
+    <div class="widget-inner">
+      <div class="toc post-toc-html"></div>
+    </div>
+  </div>
+
+    
+      
+  <div class="widget-wrap widget-cate">
+    <div class="widget-title"><span>Categories</span></div>
+    <div class="widget-inner">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">学习笔记</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%97%A5%E5%B8%B8%E6%8D%A3%E9%BC%93/">日常捣鼓</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%82%B9%E6%BB%B4%E7%94%9F%E6%B4%BB/">点滴生活</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%99%BE%E6%80%9D%E5%85%B6%E8%A7%A3/">百思其解</a></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+
+    
+      
+  <div class="widget-wrap widget-recent-posts">
+    <div class="widget-title"><span>Recent Posts</span></div>
+    <div class="widget-inner">
+      <ul>
+        
+          <li>
+            <a href="/2022/03/15/%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2Docker+Nginx+Hexo/">Docker下搭建Nginx+Hexo个人博客</a>
+          </li>
+        
+          <li>
+            <a href="/2022/01/31/%E6%B0%B4%E7%94%B5%E6%94%B9%E9%80%A0%E4%B9%8B%E7%AF%87%E4%BA%8C/">水电改造之篇二</a>
+          </li>
+        
+          <li>
+            <a href="/2021/02/08/%E7%AC%94%E8%AE%B0%E6%9C%AC%E6%97%A0%E7%BA%BF%E7%BD%91%E5%8D%A1%E4%BF%AE%E6%94%B9MAC/">笔记本无线网卡修改MAC</a>
+          </li>
+        
+          <li>
+            <a href="/2020/10/18/%E5%BE%80%E4%B8%8E%E8%BF%94%E4%B9%8B%E8%AF%9D%E6%9C%89%E7%82%B9%E5%A4%9A/">往与返之话有点多</a>
+          </li>
+        
+          <li>
+            <a href="/2020/07/20/%E6%B0%B4%E7%94%B5%E6%94%B9%E9%80%A0%E4%B9%8B%E7%AF%87%E4%B8%80/">水电改造之篇一</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+    
+      
+  <div class="widget-wrap widget-archive">
+    <div class="widget-title"><span>Archive</span></div>
+    <div class="widget-inner">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/">2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/">2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/">2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/">2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/">2018</a></li></ul>
+    </div>
+  </div>
+
+
+    
+</div>
+
+<div id="backtop"><i class="icon icon-arrow-up"></i></div>
+            </aside>
+            
+        </div>
+    </div>
+
+    <footer class="footer">
+    <div class="footer-wave">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#3c4859" fill-opacity="1" d="M0,160L60,181.3C120,203,240,245,360,240C480,235,600,181,720,186.7C840,192,960,256,1080,261.3C1200,267,1320,213,1380,186.7L1440,160L1440,320L1380,320C1320,320,1200,320,1080,320C960,320,840,320,720,320C600,320,480,320,360,320C240,320,120,320,60,320L0,320Z"></path></svg>
+    </div>
+
+    <!-- Please do not remove this -->
+    <!-- 开源不易，请勿删除 -->
+    <div class="footer-wrap">
+        <div class="footer-inner"> 
+            想到再説啦 &copy; 2022<br>
+            Powered By Hexo · Theme By <a href="https://linhong.me/" target="_blank">Aomori</a> · <a href="https://github.com/lh1me/hexo-theme-aomori" target="_blank">Github</a>
+        </div>
+    </div>
+
+</footer>
+
+
+
+
+
+
+<script src="/dist/build.js?1646451311888.js"></script>
+
+
+<script src="/dist/custom.js?1646451311888.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+
+</html>
