@@ -127,6 +127,87 @@
   
     
       <article
+id="post-多态"
+class="article article-type-post"
+>
+
+
+
+<div class="article-inner">
+    
+
+    <div class="article-body">
+    <header class="article-title">
+        <a href="/2018/11/25/%E5%A4%9A%E6%80%81/">多态</a>
+    </header>
+    <div class="article-entry post-inner-html">
+        
+        <h3 id="上代码示例："><a href="#上代码示例：" class="headerlink" title="上代码示例："></a>上代码示例：</h3><pre><code class="java">class  Test_SuperMan&#123;
+    public static void main(String[] args) &#123;
+        Person p = new SuperMan();//多态特征3：父类引用指向子类对象，向上转型
+        System.out.println(p.name);
+        p.business();
+        SuperMan s = (SuperMan)p;	//向下转型
+        System.out.println(s.name);
+        s.fly();
+    &#125;
+&#125;
+class Person
+&#123;
+    public Person()&#123;
+        System.out.println(&quot;父类构造&quot;);
+    &#125;
+    String name=&quot;哈利&quot;;
+    public void business()&#123;
+        System.out.println(&quot;谈生意&quot;);
+    &#125;
+&#125;
+class SuperMan extends Person	//SuperMan继承Person类	多态特征1：继承
+&#123;
+    public SuperMan()&#123;
+        System.out.println(&quot;子类构造&quot;);
+    &#125;
+    String name=&quot;波特&quot;;
+    public void business()&#123;			//多态特征2：重写
+        System.out.println(&quot;谈几个亿的大生意&quot;);
+    &#125;
+    public void fly()&#123;
+        System.out.println(&quot;飞出来&quot;);
+    &#125;
+&#125;
+</code></pre>
+
+        
+    </div>
+    </div>
+
+    <div class="article-badge">
+        
+        
+    </div>
+
+</div>
+
+<footer class="article-footer">
+    <div class="article-more-info">
+    <div class="article-date">
+  <time datetime="2018-11-25T04:30:12.000Z" itemprop="datePublished">2018-11-25</time>
+</div>
+    
+        <div class="article-category">
+        <a class="article-category-link" href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">学习笔记</a>
+        </div>
+    
+    
+    </div>
+</footer>
+
+</article>
+
+    
+  
+    
+      <article
 id="post-方法重写、重载"
 class="article article-type-post"
 >
@@ -448,137 +529,6 @@ Zi_1空参构造
 
     
   
-    
-      <article
-id="post-StringBuffer的认识"
-class="article article-type-post"
->
-
-
-
-<div class="article-inner">
-    
-
-    <div class="article-body">
-    <header class="article-title">
-        <a href="/2018/11/23/StringBuffer%E7%9A%84%E8%AE%A4%E8%AF%86/">StringBuffer的认识</a>
-    </header>
-    <div class="article-entry post-inner-html">
-        
-        <h3 id="StringBuffer的构造方法："><a href="#StringBuffer的构造方法：" class="headerlink" title="StringBuffer的构造方法："></a>StringBuffer的构造方法：</h3><ul>
-<li>public StringBuffer():无参构造方法<ul>
-<li>public StringBuffer(int capacity):指定容量的字符串缓冲区对象</li>
-<li>public StringBuffer(String str):指定字符串内容的字符串缓冲区对象</li>
-</ul>
-</li>
-<li>B:StringBuffer的方法：<ul>
-<li>public int capacity()：返回当前容量。	理论值(不掌握)</li>
-<li>public int length():返回长度（字符数）。 实际值</li>
-</ul>
-</li>
-</ul>
-<h3 id="StringBuffer的添加功能"><a href="#StringBuffer的添加功能" class="headerlink" title="StringBuffer的添加功能"></a>StringBuffer的添加功能</h3><ul>
-<li><p>public StringBuffer append(String str):</p>
-<ul>
-<li>可以把任意类型数据添加到字符串缓冲区里面,并返回字符串缓冲区本身</li>
-</ul>
-</li>
-<li><p>public StringBuffer insert(int offset,String str):</p>
-<ul>
-<li>在指定位置把任意类型的数据插入到字符串缓冲区里面,并返回字符串缓冲区本身<br>StringBuffer是字符串缓冲区,当new的时候是在堆内存创建了一个对象,底层是一个长度为16的字符数组<br>当调用添加的方法时,不会再重新创建对象,在不断向原缓冲区添加字符</li>
-</ul>
-</li>
-</ul>
-<h3 id="StringBuffer的删除功能"><a href="#StringBuffer的删除功能" class="headerlink" title="StringBuffer的删除功能"></a>StringBuffer的删除功能</h3><ul>
-<li><p>public StringBuffer deleteCharAt(int index):<br>删除指定位置的字符，并返回本身</p>
-</li>
-<li><p>public StringBuffer delete(int start,int end):</p>
-</li>
-<li><p>删除从指定位置开始指定位置结束的内容，并返回本身</p>
-<pre><code class="java">StringBuffer sb = new StringBuffer();
-sb.append(&quot;heima&quot;);
-sb.delete(0, sb.length());			//清空缓冲区
-System.out.println(sb);
-//sb = new StringBuffer();	//不要用这种方式清空缓冲区,原来的会变成垃圾,浪费内存
-//System.out.println(sb);
-</code></pre>
-</li>
-</ul>
-<h3 id="StringBuffer的替换功能"><a href="#StringBuffer的替换功能" class="headerlink" title="StringBuffer的替换功能"></a>StringBuffer的替换功能</h3><ul>
-<li>public StringBuffer replace(int start,int end,String str):	#从start开始到end用str替换</li>
-</ul>
-<h3 id="StringBuffer的反转功能"><a href="#StringBuffer的反转功能" class="headerlink" title="StringBuffer的反转功能"></a>StringBuffer的反转功能</h3><ul>
-<li>public StringBuffer reverse():	#字符串反转</li>
-</ul>
-<h3 id="StringBuffer的截取功能"><a href="#StringBuffer的截取功能" class="headerlink" title="StringBuffer的截取功能"></a>StringBuffer的截取功能</h3><ul>
-<li>public String substring(int start):	#从指定位置截取到末尾</li>
-<li>public String substring(int start,int end):	#截取从指定位置开始到结束位置，包括开始位置，不包括结束位置</li>
-<li>注意事项<ul>
-<li>返回值类型不再是StringBuffer本身</li>
-</ul>
-</li>
-</ul>
-<h3 id="String-–-StringBuffer转换"><a href="#String-–-StringBuffer转换" class="headerlink" title="String – StringBuffer转换"></a>String – StringBuffer转换</h3><ul>
-<li><p>通过构造方法 </p>
-<pre><code class="java">StringBuffer sb = new StringBuffer(&quot;abc&quot;);
-sout(sb);
-</code></pre>
-</li>
-<li><p>通过append()方法</p>
-<pre><code class="java">StringBuffer sb1 = new StringBuffer();
-sb1.append(&quot;abc&quot;);
-sout(sb1);
-</code></pre>
-</li>
-</ul>
-<h3 id="StringBuffer-–-String转换"><a href="#StringBuffer-–-String转换" class="headerlink" title="StringBuffer – String转换"></a>StringBuffer – String转换</h3><ul>
-<li><p>通过构造方法</p>
-<pre><code class="java">StringBuffer sb1 = new StringBuffer(&quot;abc&quot;);
-Stirng s = new String(sb1)
-sout(s);
-</code></pre>
-</li>
-<li><p>通过toString()方法</p>
-<pre><code class="java">String s1= sb1.toString();
-sout(s1);
-</code></pre>
-</li>
-<li><p>通过subString(0,length);</p>
-<pre><code class="java">String s2 =sb1.substring(0,sb.length());
-sout(s2);
-</code></pre>
-</li>
-</ul>
-
-        
-    </div>
-    </div>
-
-    <div class="article-badge">
-        
-        
-    </div>
-
-</div>
-
-<footer class="article-footer">
-    <div class="article-more-info">
-    <div class="article-date">
-  <time datetime="2018-11-23T04:21:12.000Z" itemprop="datePublished">2018-11-23</time>
-</div>
-    
-        <div class="article-category">
-        <a class="article-category-link" href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">学习笔记</a>
-        </div>
-    
-    
-    </div>
-</footer>
-
-</article>
-
-    
-  
 
   
     <nav class="pagination">
@@ -623,6 +573,10 @@ sout(s2);
           </li>
         
           <li>
+            <a href="/2022/02/10/Git%E7%9A%84%E4%BD%BF%E7%94%A8%E4%B8%8E%E7%A2%B0%E5%A3%81/">Git的使用与碰壁</a>
+          </li>
+        
+          <li>
             <a href="/2022/01/31/%E6%B0%B4%E7%94%B5%E6%94%B9%E9%80%A0%E4%B9%8B%E7%AF%87%E4%BA%8C/">水电改造之篇二</a>
           </li>
         
@@ -632,10 +586,6 @@ sout(s2);
         
           <li>
             <a href="/2020/10/18/%E5%BE%80%E4%B8%8E%E8%BF%94%E4%B9%8B%E8%AF%9D%E6%9C%89%E7%82%B9%E5%A4%9A/">往与返之话有点多</a>
-          </li>
-        
-          <li>
-            <a href="/2020/07/20/%E6%B0%B4%E7%94%B5%E6%94%B9%E9%80%A0%E4%B9%8B%E7%AF%87%E4%B8%80/">水电改造之篇一</a>
           </li>
         
       </ul>

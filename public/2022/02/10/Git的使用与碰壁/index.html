@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+    
+    <title>Git的使用与碰壁 | 想到再説啦</title>
+
+    <meta name="description" content="&lt;p&gt;&lt;img src=&#34;/images/Git%E7%9A%84%E4%BD%BF%E7%94%A8%E4%B8%8E%E7%A2%B0%E5%A3%811.png&#34;&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;图出自网络&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;图解：（暂时抛去官方解释不看，先以个人理解作为出发点，有助于探索学习）&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;(个人)工作区：&lt;/strong&gt;项目代码本地存放、个人代码维护修改更新等相关操作存放区；&lt;br&gt;&lt;strong&gt;Index索引：&lt;/strong&gt;看作缓存作用，存放着工作区所有的临时操作记录信息；&lt;br&gt;&lt;strong&gt;存储仓库：&lt;/strong&gt;同样视为缓存作用，但它存放的是具体修改后的文件，而不是操作记录；&lt;br&gt;&lt;strong&gt;远程仓储：&lt;/strong&gt;最终项目代码公示、长期曝光区，代码托管，无人值守，存取便利。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt; 流程1：&lt;strong&gt;工作区&lt;/strong&gt;修改后，用&lt;code&gt;git add&lt;/code&gt;将临时的操作记录存放于&lt;strong&gt;Index索引区&lt;/strong&gt;，这时通过&lt;code&gt;git commit&lt;/code&gt;可将Index区存放的操作记录对应的文件提交到&lt;strong&gt;存储仓库&lt;/strong&gt;（如果中途反悔，可使用&lt;code&gt;checkout&lt;/code&gt;退回提交的代码）；接着中间存储仓库将完整&amp;#x2F;改变的代码文件整体push到&lt;strong&gt;远程公共仓储&lt;/strong&gt;上托管。">
+    <meta name="keywords" content="">
+
+    
+
+    <meta property="og:locale" content="zh-CN" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content= "Git的使用与碰壁 | 想到再説啦"  />
+    <meta property="og:description" content= "&lt;p&gt;&lt;img src=&#34;/images/Git%E7%9A%84%E4%BD%BF%E7%94%A8%E4%B8%8E%E7%A2%B0%E5%A3%811.png&#34;&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;图出自网络&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;图解：（暂时抛去官方解释不看，先以个人理解作为出发点，有助于探索学习）&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;(个人)工作区：&lt;/strong&gt;项目代码本地存放、个人代码维护修改更新等相关操作存放区；&lt;br&gt;&lt;strong&gt;Index索引：&lt;/strong&gt;看作缓存作用，存放着工作区所有的临时操作记录信息；&lt;br&gt;&lt;strong&gt;存储仓库：&lt;/strong&gt;同样视为缓存作用，但它存放的是具体修改后的文件，而不是操作记录；&lt;br&gt;&lt;strong&gt;远程仓储：&lt;/strong&gt;最终项目代码公示、长期曝光区，代码托管，无人值守，存取便利。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt; 流程1：&lt;strong&gt;工作区&lt;/strong&gt;修改后，用&lt;code&gt;git add&lt;/code&gt;将临时的操作记录存放于&lt;strong&gt;Index索引区&lt;/strong&gt;，这时通过&lt;code&gt;git commit&lt;/code&gt;可将Index区存放的操作记录对应的文件提交到&lt;strong&gt;存储仓库&lt;/strong&gt;（如果中途反悔，可使用&lt;code&gt;checkout&lt;/code&gt;退回提交的代码）；接着中间存储仓库将完整&amp;#x2F;改变的代码文件整体push到&lt;strong&gt;远程公共仓储&lt;/strong&gt;上托管。" />
+    <meta property="og:url" content="https://weiduni.tk/2022/02/10/Git%E7%9A%84%E4%BD%BF%E7%94%A8%E4%B8%8E%E7%A2%B0%E5%A3%81/index.html" />
+    <meta property="og:site_name" content="" />
+    <meta property="article:author" content="啊些事" />
+    <meta property="article:publisher" content="" />
+    <meta property="og:description" content="&lt;p&gt;&lt;img src=&#34;/images/Git%E7%9A%84%E4%BD%BF%E7%94%A8%E4%B8%8E%E7%A2%B0%E5%A3%811.png&#34;&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;图出自网络&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;图解：（暂时抛去官方解释不看，先以个人理解作为出发点，有助于探索学习）&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;(个人)工作区：&lt;/strong&gt;项目代码本地存放、个人代码维护修改更新等相关操作存放区；&lt;br&gt;&lt;strong&gt;Index索引：&lt;/strong&gt;看作缓存作用，存放着工作区所有的临时操作记录信息；&lt;br&gt;&lt;strong&gt;存储仓库：&lt;/strong&gt;同样视为缓存作用，但它存放的是具体修改后的文件，而不是操作记录；&lt;br&gt;&lt;strong&gt;远程仓储：&lt;/strong&gt;最终项目代码公示、长期曝光区，代码托管，无人值守，存取便利。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt; 流程1：&lt;strong&gt;工作区&lt;/strong&gt;修改后，用&lt;code&gt;git add&lt;/code&gt;将临时的操作记录存放于&lt;strong&gt;Index索引区&lt;/strong&gt;，这时通过&lt;code&gt;git commit&lt;/code&gt;可将Index区存放的操作记录对应的文件提交到&lt;strong&gt;存储仓库&lt;/strong&gt;（如果中途反悔，可使用&lt;code&gt;checkout&lt;/code&gt;退回提交的代码）；接着中间存储仓库将完整&amp;#x2F;改变的代码文件整体push到&lt;strong&gt;远程公共仓储&lt;/strong&gt;上托管。" />
+    <meta name="twitter:title" content="Git的使用与碰壁 | 想到再説啦"/>
+    <meta name="twitter:description" content="&lt;p&gt;&lt;img src=&#34;/images/Git%E7%9A%84%E4%BD%BF%E7%94%A8%E4%B8%8E%E7%A2%B0%E5%A3%811.png&#34;&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;图出自网络&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;图解：（暂时抛去官方解释不看，先以个人理解作为出发点，有助于探索学习）&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;(个人)工作区：&lt;/strong&gt;项目代码本地存放、个人代码维护修改更新等相关操作存放区；&lt;br&gt;&lt;strong&gt;Index索引：&lt;/strong&gt;看作缓存作用，存放着工作区所有的临时操作记录信息；&lt;br&gt;&lt;strong&gt;存储仓库：&lt;/strong&gt;同样视为缓存作用，但它存放的是具体修改后的文件，而不是操作记录；&lt;br&gt;&lt;strong&gt;远程仓储：&lt;/strong&gt;最终项目代码公示、长期曝光区，代码托管，无人值守，存取便利。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt; 流程1：&lt;strong&gt;工作区&lt;/strong&gt;修改后，用&lt;code&gt;git add&lt;/code&gt;将临时的操作记录存放于&lt;strong&gt;Index索引区&lt;/strong&gt;，这时通过&lt;code&gt;git commit&lt;/code&gt;可将Index区存放的操作记录对应的文件提交到&lt;strong&gt;存储仓库&lt;/strong&gt;（如果中途反悔，可使用&lt;code&gt;checkout&lt;/code&gt;退回提交的代码）；接着中间存储仓库将完整&amp;#x2F;改变的代码文件整体push到&lt;strong&gt;远程公共仓储&lt;/strong&gt;上托管。"/>
+    <script type="application/ld+json">
+        {
+            "description": "&lt;p&gt;&lt;img src=&#34;/images/Git%E7%9A%84%E4%BD%BF%E7%94%A8%E4%B8%8E%E7%A2%B0%E5%A3%811.png&#34;&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;图出自网络&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;图解：（暂时抛去官方解释不看，先以个人理解作为出发点，有助于探索学习）&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;(个人)工作区：&lt;/strong&gt;项目代码本地存放、个人代码维护修改更新等相关操作存放区；&lt;br&gt;&lt;strong&gt;Index索引：&lt;/strong&gt;看作缓存作用，存放着工作区所有的临时操作记录信息；&lt;br&gt;&lt;strong&gt;存储仓库：&lt;/strong&gt;同样视为缓存作用，但它存放的是具体修改后的文件，而不是操作记录；&lt;br&gt;&lt;strong&gt;远程仓储：&lt;/strong&gt;最终项目代码公示、长期曝光区，代码托管，无人值守，存取便利。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt; 流程1：&lt;strong&gt;工作区&lt;/strong&gt;修改后，用&lt;code&gt;git add&lt;/code&gt;将临时的操作记录存放于&lt;strong&gt;Index索引区&lt;/strong&gt;，这时通过&lt;code&gt;git commit&lt;/code&gt;可将Index区存放的操作记录对应的文件提交到&lt;strong&gt;存储仓库&lt;/strong&gt;（如果中途反悔，可使用&lt;code&gt;checkout&lt;/code&gt;退回提交的代码）；接着中间存储仓库将完整&amp;#x2F;改变的代码文件整体push到&lt;strong&gt;远程公共仓储&lt;/strong&gt;上托管。",
+            "author": { "@type": "Person", "name": "啊些事" },
+            "@type": "BlogPosting",
+            "url": "https://weiduni.tk/2022/02/10/Git%E7%9A%84%E4%BD%BF%E7%94%A8%E4%B8%8E%E7%A2%B0%E5%A3%81/index.html",
+            "publisher": {
+            "@type": "Organization",
+            "logo": {
+                "@type": "ImageObject",
+                "url": "https://weiduni.tkundefined"
+            },
+            "name": "啊些事"
+            },
+            "headline": "Git的使用与碰壁 | 想到再説啦",
+            "datePublished": "2022-02-10T13:08:03.000Z",
+            "mainEntityOfPage": {
+                "@type": "WebPage",
+                "@id": "https://weiduni.tk/2022/02/10/Git%E7%9A%84%E4%BD%BF%E7%94%A8%E4%B8%8E%E7%A2%B0%E5%A3%81/index.html"
+            },
+            "@context": "http://schema.org"
+        }
+    </script>
+
+
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+<link rel="stylesheet" href="/dist/build.css?v=1646451311888.css">
+
+
+    
+<link rel="stylesheet" href="/dist/custom.css?v=1646451311888.css">
+
+
+    <script>
+        window.isPost = true
+        window.aomori = {
+            
+            
+            
+        }
+        window.aomori_logo_typed_animated = false
+        window.aomori_search_algolia = false
+
+    </script>
+
+<meta name="generator" content="Hexo 6.1.0"></head>
+
+<body>
+
+    <div class="container">
+    <header class="header">
+        <div class="header-type">
+            
+            <div class="header-type-inner">
+                
+                    <a class="header-type-title" href="/">想到再説啦</a>
+                
+    
+                
+            </div>
+        </div>
+        <div class="header-menu">
+            <div class="header-menu-inner">
+                
+            </div>
+            <div class="header-menu-social">
+                
+            </div>
+        </div>
+
+        <div class="header-menu-mobile">
+            <div class="header-menu-mobile-inner" id="mobile-menu-open">
+                <i class="icon icon-menu"></i>
+            </div>
+        </div>
+    </header>
+
+    <div class="header-menu-mobile-menu">
+        <div class="header-menu-mobile-menu-bg"></div>
+        <div class="header-menu-mobile-menu-wrap">
+            <div class="header-menu-mobile-menu-inner">
+                <div class="header-menu-mobile-menu-close" id="mobile-menu-close">
+                    <i class="icon icon-cross"></i>
+                </div>
+                <div class="header-menu-mobile-menu-list">
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+    <div class="container">
+        <div class="main">
+            <section class="inner">
+                <section class="inner-main">
+                    <div class="post">
+    <article id="post-cl22717g800036zo3hq9k2die" class="article article-type-post" itemscope
+    itemprop="blogPost">
+
+    <div class="article-inner">
+
+        
+          
+        
+        
+        
+
+        
+        <header class="article-header">
+            
+  
+    <h1 class="article-title" itemprop="name">
+      Git的使用与碰壁
+    </h1>
+  
+
+        </header>
+        
+
+        <div class="article-more-info article-more-info-post hairline">
+
+            <div class="article-date">
+  <time datetime="2022-02-10T13:08:03.000Z" itemprop="datePublished">2022-02-10</time>
+</div>
+
+            
+            <div class="article-category">
+                <a class="article-category-link" href="/categories/%E6%97%A5%E5%B8%B8%E6%8D%A3%E9%BC%93/">日常捣鼓</a>
+            </div>
+            
+
+            
+
+            
+
+        </div>
+
+        <div class="article-entry post-inner-html hairline" itemprop="articleBody">
+            <p><img src="/images/Git%E7%9A%84%E4%BD%BF%E7%94%A8%E4%B8%8E%E7%A2%B0%E5%A3%811.png"></p>
+<ul>
+<li><p>图出自网络</p>
+</li>
+<li><p>图解：（暂时抛去官方解释不看，先以个人理解作为出发点，有助于探索学习）</p>
+<p><strong>(个人)工作区：</strong>项目代码本地存放、个人代码维护修改更新等相关操作存放区；<br><strong>Index索引：</strong>看作缓存作用，存放着工作区所有的临时操作记录信息；<br><strong>存储仓库：</strong>同样视为缓存作用，但它存放的是具体修改后的文件，而不是操作记录；<br><strong>远程仓储：</strong>最终项目代码公示、长期曝光区，代码托管，无人值守，存取便利。</p>
+</li>
+</ul>
+<blockquote>
+<p> 流程1：<strong>工作区</strong>修改后，用<code>git add</code>将临时的操作记录存放于<strong>Index索引区</strong>，这时通过<code>git commit</code>可将Index区存放的操作记录对应的文件提交到<strong>存储仓库</strong>（如果中途反悔，可使用<code>checkout</code>退回提交的代码）；接着中间存储仓库将完整&#x2F;改变的代码文件整体push到<strong>远程公共仓储</strong>上托管。<span id="more"></span></p>
+<p><code>将流程1看作是同事甲的操作，当在团队协作时，同事乙也是维护人之一，此时乙想要同步得到甲更新后的文件。</code></p>
+<p> 流程2：同事乙可通过pull &#x2F; clone将文件传到他个人工作区，也就是本机电脑上；</p>
+<ul>
+<li>pull：直接复制回工作区，加入的内容和现存内容之间会进行对比记录更新；</li>
+<li>clone：将整个项目文件复制一份到本机，包含.git目录，相当于项目是在本地主机从无到有。</li>
+</ul>
+</blockquote>
+<h3 id="工作区、Index、仓库区三者间"><a href="#工作区、Index、仓库区三者间" class="headerlink" title="工作区、Index、仓库区三者间"></a>工作区、Index、仓库区三者间</h3><p>  <strong>git add 绿字会变红字(撤销add)</strong><br>    <code>git reset HEAD</code> 		后面什么都不跟的，就是上一次add 里面的内容全部撤销<br>    <code>git reset HEAD XXX</code> 	后面跟文件名，就是对某个文件进行撤销</p>
+<p>  <strong>git commit 撤销操作</strong><br>    <code>git reset --soft HEAD</code>       仅是撤回commit操作，您写的代码仍然保留。</p>
+<p>  <strong>git reset 其他参数说明：</strong><br>    <code>--mixed</code>        不删除工作空间改动代码，撤销commit，并且撤销git add . 这个为默认参数,<br>    <code>git reset --mixed HEAD^</code> 和 <code>git reset HEAD^</code> 效果是一样的。<br>    <code>--soft</code>         不删除工作空间改动代码，撤销commit，不撤销git add .<br>    <code>--hard</code>         删除工作空间改动代码，撤销commit，撤销git add . 注意完成这个操作后，就恢复到了上一次的commit状态。<br>    <code>git commit --amend</code>      改commit注释，此时会进入默认vim编辑器，修改注释完毕后保存就好了。</p>
+<p>  <strong>红字变无 (撤销没add修改)</strong><br>    <code>git checkout -- 文件</code></p>
+<p>  <strong>要删除指定的commit</strong><br>    <code>git log</code>     查找到要删除提交记录的上一条提交的commit的id，执行<br>    <code>git rebase -i (commit的id)</code><br>    弹出框中上方有很多pick记录，对应的commit提交，将需要删除的commit的pick改为drop，保存<br>    <code>git log</code>可以看到所删记录没有了</p>
+<p>   <code>git status</code> 查看改变的文件列表<br>   <code>git status -s</code> 查看改变的文件列表简化版<br>   <code>git diff</code>或者<code>git diff filename</code>查看不在缓冲区的文件发生的改变<br>   <code>git diff --cached</code>或者<code>git diff --staged</code>查看缓冲区的文件发生的改变<br>   <code>git diff HEAD</code>是<code>git diff</code>和<code>git diff --cached</code>的合并</p>
+<h3 id="报错信息“fatal-‘origin’-does-not-appear-to-be-a-git-repository…”"><a href="#报错信息“fatal-‘origin’-does-not-appear-to-be-a-git-repository…”" class="headerlink" title="报错信息“fatal: ‘origin’ does not appear to be a git repository…”"></a>报错信息“fatal: ‘origin’ does not appear to be a git repository…”</h3><p>  $ git push -u origin master<br>  fatal: ‘origin’ does not appear to be a git repository<br>  fatal: Could not read from remote repository.</p>
+<p>  是因为远程不存在origin这个仓库名称，可以使用如下操作方法，查看远程仓库名称以及路径相关信息，可以删除错误的远程仓库名称，重新添加新的远程仓库；<br>  <code>git remote -v</code>                                   查看远程仓库详细信息，可以看到仓库名称<br>  <code>git remote remove orign</code>             删除orign仓库（如果把origin拼写成orign，删除错误名称仓库）<br>  <code>git remote add origin 仓库地址</code>       重新添加远程仓库地址<br>  <code>gti push -u origin master</code>             提交到远程仓库的master主干</p>
+<p><strong>持续…</strong></p>
+
+        </div>
+
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+<nav class="article-nav">
+  
+    <a href="/2022/03/15/%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2Docker+Nginx+Hexo/" id="article-nav-newer" class="article-nav-link-wrap">
+      <div class="article-nav-caption">下一篇</div>
+      <div class="article-nav-title">
+        
+          Docker下搭建Nginx+Hexo个人博客
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2022/01/31/%E6%B0%B4%E7%94%B5%E6%94%B9%E9%80%A0%E4%B9%8B%E7%AF%87%E4%BA%8C/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-caption">上一篇</div>
+      <div class="article-nav-title">水电改造之篇二</div>
+    </a>
+  
+</nav>
+
+
+    <section class="share">
+        <div class="share-title">分享</div>
+        <a class="share-item" target="_blank"
+            href="https://twitter.com/share?text=Git的使用与碰壁 - 想到再説啦&url=https://weiduni.tk/2022/02/10/Git%E7%9A%84%E4%BD%BF%E7%94%A8%E4%B8%8E%E7%A2%B0%E5%A3%81/">
+            <box-icon type='logo' name='twitter'></box-icon>
+        </a>
+        <a class="share-item" target="_blank"
+            href="https://www.facebook.com/sharer.php?title=Git的使用与碰壁 - 想到再説啦&u=https://weiduni.tk/2022/02/10/Git%E7%9A%84%E4%BD%BF%E7%94%A8%E4%B8%8E%E7%A2%B0%E5%A3%81/">
+            <box-icon name='facebook-square' type='logo' ></box-icon>
+        </a>
+        <!-- <a class="share-item" target="_blank"
+            href="https://service.weibo.com/share/share.php?title=Git的使用与碰壁 - 想到再説啦&url=https://weiduni.tk/2022/02/10/Git%E7%9A%84%E4%BD%BF%E7%94%A8%E4%B8%8E%E7%A2%B0%E5%A3%81/&pic=">
+            <div class="n-icon n-icon-weibo"></div>
+        </a> -->
+    </section>
+
+</article>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+                </section>
+            </section>
+
+            
+            <aside class="sidebar ">
+                
+
+
+<div class="widget" id="widget">
+    
+      
+  <div class="widget-wrap">
+    <div class="widget-inner">
+      <div class="toc post-toc-html"></div>
+    </div>
+  </div>
+
+    
+      
+  <div class="widget-wrap widget-cate">
+    <div class="widget-title"><span>Categories</span></div>
+    <div class="widget-inner">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">学习笔记</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%97%A5%E5%B8%B8%E6%8D%A3%E9%BC%93/">日常捣鼓</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%82%B9%E6%BB%B4%E7%94%9F%E6%B4%BB/">点滴生活</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%99%BE%E6%80%9D%E5%85%B6%E8%A7%A3/">百思其解</a></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+
+    
+      
+  <div class="widget-wrap widget-recent-posts">
+    <div class="widget-title"><span>Recent Posts</span></div>
+    <div class="widget-inner">
+      <ul>
+        
+          <li>
+            <a href="/2022/03/15/%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2Docker+Nginx+Hexo/">Docker下搭建Nginx+Hexo个人博客</a>
+          </li>
+        
+          <li>
+            <a href="/2022/02/10/Git%E7%9A%84%E4%BD%BF%E7%94%A8%E4%B8%8E%E7%A2%B0%E5%A3%81/">Git的使用与碰壁</a>
+          </li>
+        
+          <li>
+            <a href="/2022/01/31/%E6%B0%B4%E7%94%B5%E6%94%B9%E9%80%A0%E4%B9%8B%E7%AF%87%E4%BA%8C/">水电改造之篇二</a>
+          </li>
+        
+          <li>
+            <a href="/2021/02/08/%E7%AC%94%E8%AE%B0%E6%9C%AC%E6%97%A0%E7%BA%BF%E7%BD%91%E5%8D%A1%E4%BF%AE%E6%94%B9MAC/">笔记本无线网卡修改MAC</a>
+          </li>
+        
+          <li>
+            <a href="/2020/10/18/%E5%BE%80%E4%B8%8E%E8%BF%94%E4%B9%8B%E8%AF%9D%E6%9C%89%E7%82%B9%E5%A4%9A/">往与返之话有点多</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+    
+      
+  <div class="widget-wrap widget-archive">
+    <div class="widget-title"><span>Archive</span></div>
+    <div class="widget-inner">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/">2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/">2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/">2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/">2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/">2018</a></li></ul>
+    </div>
+  </div>
+
+
+    
+</div>
+
+<div id="backtop"><i class="icon icon-arrow-up"></i></div>
+            </aside>
+            
+        </div>
+    </div>
+
+    <footer class="footer">
+    <div class="footer-wave">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#3c4859" fill-opacity="1" d="M0,160L60,181.3C120,203,240,245,360,240C480,235,600,181,720,186.7C840,192,960,256,1080,261.3C1200,267,1320,213,1380,186.7L1440,160L1440,320L1380,320C1320,320,1200,320,1080,320C960,320,840,320,720,320C600,320,480,320,360,320C240,320,120,320,60,320L0,320Z"></path></svg>
+    </div>
+
+    <!-- Please do not remove this -->
+    <!-- 开源不易，请勿删除 -->
+    <div class="footer-wrap">
+        <div class="footer-inner"> 
+            想到再説啦 &copy; 2022<br>
+            Powered By Hexo · Theme By <a href="https://linhong.me/" target="_blank">Aomori</a> · <a href="https://github.com/lh1me/hexo-theme-aomori" target="_blank">Github</a>
+        </div>
+    </div>
+
+</footer>
+
+
+
+
+
+
+<script src="/dist/build.js?1646451311888.js"></script>
+
+
+<script src="/dist/custom.js?1646451311888.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+
+</html>

@@ -8,8 +8,9 @@
     
     <title>Docker下搭建Nginx+Hexo个人博客 | 想到再説啦</title>
 
-    <meta name="description" content="&lt;h3 id=&#34;开篇&#34;&gt;&lt;a href=&#34;#开篇&#34; class=&#34;headerlink&#34; title=&#34;开篇&#34;&gt;&lt;/a&gt;开篇&lt;/h3&gt;&lt;pre&gt;&lt;code&gt;本文内容仅作为练手与折腾，也是结合网上大佬的经验分享进行整理！（看得再多，不如实践出真章）
-&lt;/code&gt;&lt;/pre&gt;
+    <meta name="description" content="&lt;h3 id=&#34;开篇&#34;&gt;&lt;a href=&#34;#开篇&#34; class=&#34;headerlink&#34; title=&#34;开篇&#34;&gt;&lt;/a&gt;开篇&lt;/h3&gt;&lt;blockquote&gt;
+&lt;p&gt;本文内容仅作为练手与折腾，也是结合网上大佬的经验分享进行整理！（看得再多，不如实践出真章）&lt;/p&gt;
+&lt;/blockquote&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;h3 id=&#34;Docker：环境隔离、资源复用。&#34;&gt;&lt;a href=&#34;#Docker：环境隔离、资源复用。&#34; class=&#34;headerlink&#34; title=&#34;Docker：环境隔离、资源复用。&#34;&gt;&lt;/a&gt;Docker：环境隔离、资源复用。&lt;/h3&gt;&lt;/li&gt;
 &lt;li&gt;&lt;h3 id=&#34;Hexo：快速、简洁且高效的博客框架&#34;&gt;&lt;a href=&#34;#Hexo：快速、简洁且高效的博客框架&#34; class=&#34;headerlink&#34; title=&#34;Hexo：快速、简洁且高效的博客框架&#34;&gt;&lt;/a&gt;Hexo：快速、简洁且高效的博客框架&lt;/h3&gt;&lt;ul&gt;
@@ -25,7 +26,11 @@
 &lt;/li&gt;
 &lt;li&gt;&lt;p&gt;&lt;strong&gt;使用环境&amp;amp;应用&lt;/strong&gt;：&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;CentOS 7.9 + Docker + Hexo + Nginx + Git">
+&lt;li&gt;CentOS 7.9 + Docker + Hexo + Nginx + Git&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h1 id=&#34;开始：&#34;&gt;&lt;a href=&#34;#开始：&#34; class=&#34;headerlink&#34; title=&#34;开始：&#34;&gt;&lt;/a&gt;开始：&lt;/h1&gt;">
     <meta name="keywords" content="">
 
     
@@ -33,8 +38,9 @@
     <meta property="og:locale" content="zh-CN" />
     <meta property="og:type" content="article" />
     <meta property="og:title" content= "Docker下搭建Nginx+Hexo个人博客 | 想到再説啦"  />
-    <meta property="og:description" content= "&lt;h3 id=&#34;开篇&#34;&gt;&lt;a href=&#34;#开篇&#34; class=&#34;headerlink&#34; title=&#34;开篇&#34;&gt;&lt;/a&gt;开篇&lt;/h3&gt;&lt;pre&gt;&lt;code&gt;本文内容仅作为练手与折腾，也是结合网上大佬的经验分享进行整理！（看得再多，不如实践出真章）
-&lt;/code&gt;&lt;/pre&gt;
+    <meta property="og:description" content= "&lt;h3 id=&#34;开篇&#34;&gt;&lt;a href=&#34;#开篇&#34; class=&#34;headerlink&#34; title=&#34;开篇&#34;&gt;&lt;/a&gt;开篇&lt;/h3&gt;&lt;blockquote&gt;
+&lt;p&gt;本文内容仅作为练手与折腾，也是结合网上大佬的经验分享进行整理！（看得再多，不如实践出真章）&lt;/p&gt;
+&lt;/blockquote&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;h3 id=&#34;Docker：环境隔离、资源复用。&#34;&gt;&lt;a href=&#34;#Docker：环境隔离、资源复用。&#34; class=&#34;headerlink&#34; title=&#34;Docker：环境隔离、资源复用。&#34;&gt;&lt;/a&gt;Docker：环境隔离、资源复用。&lt;/h3&gt;&lt;/li&gt;
 &lt;li&gt;&lt;h3 id=&#34;Hexo：快速、简洁且高效的博客框架&#34;&gt;&lt;a href=&#34;#Hexo：快速、简洁且高效的博客框架&#34; class=&#34;headerlink&#34; title=&#34;Hexo：快速、简洁且高效的博客框架&#34;&gt;&lt;/a&gt;Hexo：快速、简洁且高效的博客框架&lt;/h3&gt;&lt;ul&gt;
@@ -50,13 +56,18 @@
 &lt;/li&gt;
 &lt;li&gt;&lt;p&gt;&lt;strong&gt;使用环境&amp;amp;应用&lt;/strong&gt;：&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;CentOS 7.9 + Docker + Hexo + Nginx + Git" />
+&lt;li&gt;CentOS 7.9 + Docker + Hexo + Nginx + Git&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h1 id=&#34;开始：&#34;&gt;&lt;a href=&#34;#开始：&#34; class=&#34;headerlink&#34; title=&#34;开始：&#34;&gt;&lt;/a&gt;开始：&lt;/h1&gt;" />
     <meta property="og:url" content="https://weiduni.tk/2022/03/15/%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2Docker+Nginx+Hexo/index.html" />
     <meta property="og:site_name" content="" />
     <meta property="article:author" content="啊些事" />
     <meta property="article:publisher" content="" />
-    <meta property="og:description" content="&lt;h3 id=&#34;开篇&#34;&gt;&lt;a href=&#34;#开篇&#34; class=&#34;headerlink&#34; title=&#34;开篇&#34;&gt;&lt;/a&gt;开篇&lt;/h3&gt;&lt;pre&gt;&lt;code&gt;本文内容仅作为练手与折腾，也是结合网上大佬的经验分享进行整理！（看得再多，不如实践出真章）
-&lt;/code&gt;&lt;/pre&gt;
+    <meta property="og:description" content="&lt;h3 id=&#34;开篇&#34;&gt;&lt;a href=&#34;#开篇&#34; class=&#34;headerlink&#34; title=&#34;开篇&#34;&gt;&lt;/a&gt;开篇&lt;/h3&gt;&lt;blockquote&gt;
+&lt;p&gt;本文内容仅作为练手与折腾，也是结合网上大佬的经验分享进行整理！（看得再多，不如实践出真章）&lt;/p&gt;
+&lt;/blockquote&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;h3 id=&#34;Docker：环境隔离、资源复用。&#34;&gt;&lt;a href=&#34;#Docker：环境隔离、资源复用。&#34; class=&#34;headerlink&#34; title=&#34;Docker：环境隔离、资源复用。&#34;&gt;&lt;/a&gt;Docker：环境隔离、资源复用。&lt;/h3&gt;&lt;/li&gt;
 &lt;li&gt;&lt;h3 id=&#34;Hexo：快速、简洁且高效的博客框架&#34;&gt;&lt;a href=&#34;#Hexo：快速、简洁且高效的博客框架&#34; class=&#34;headerlink&#34; title=&#34;Hexo：快速、简洁且高效的博客框架&#34;&gt;&lt;/a&gt;Hexo：快速、简洁且高效的博客框架&lt;/h3&gt;&lt;ul&gt;
@@ -72,10 +83,15 @@
 &lt;/li&gt;
 &lt;li&gt;&lt;p&gt;&lt;strong&gt;使用环境&amp;amp;应用&lt;/strong&gt;：&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;CentOS 7.9 + Docker + Hexo + Nginx + Git" />
+&lt;li&gt;CentOS 7.9 + Docker + Hexo + Nginx + Git&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h1 id=&#34;开始：&#34;&gt;&lt;a href=&#34;#开始：&#34; class=&#34;headerlink&#34; title=&#34;开始：&#34;&gt;&lt;/a&gt;开始：&lt;/h1&gt;" />
     <meta name="twitter:title" content="Docker下搭建Nginx+Hexo个人博客 | 想到再説啦"/>
-    <meta name="twitter:description" content="&lt;h3 id=&#34;开篇&#34;&gt;&lt;a href=&#34;#开篇&#34; class=&#34;headerlink&#34; title=&#34;开篇&#34;&gt;&lt;/a&gt;开篇&lt;/h3&gt;&lt;pre&gt;&lt;code&gt;本文内容仅作为练手与折腾，也是结合网上大佬的经验分享进行整理！（看得再多，不如实践出真章）
-&lt;/code&gt;&lt;/pre&gt;
+    <meta name="twitter:description" content="&lt;h3 id=&#34;开篇&#34;&gt;&lt;a href=&#34;#开篇&#34; class=&#34;headerlink&#34; title=&#34;开篇&#34;&gt;&lt;/a&gt;开篇&lt;/h3&gt;&lt;blockquote&gt;
+&lt;p&gt;本文内容仅作为练手与折腾，也是结合网上大佬的经验分享进行整理！（看得再多，不如实践出真章）&lt;/p&gt;
+&lt;/blockquote&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;h3 id=&#34;Docker：环境隔离、资源复用。&#34;&gt;&lt;a href=&#34;#Docker：环境隔离、资源复用。&#34; class=&#34;headerlink&#34; title=&#34;Docker：环境隔离、资源复用。&#34;&gt;&lt;/a&gt;Docker：环境隔离、资源复用。&lt;/h3&gt;&lt;/li&gt;
 &lt;li&gt;&lt;h3 id=&#34;Hexo：快速、简洁且高效的博客框架&#34;&gt;&lt;a href=&#34;#Hexo：快速、简洁且高效的博客框架&#34; class=&#34;headerlink&#34; title=&#34;Hexo：快速、简洁且高效的博客框架&#34;&gt;&lt;/a&gt;Hexo：快速、简洁且高效的博客框架&lt;/h3&gt;&lt;ul&gt;
@@ -91,11 +107,16 @@
 &lt;/li&gt;
 &lt;li&gt;&lt;p&gt;&lt;strong&gt;使用环境&amp;amp;应用&lt;/strong&gt;：&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;CentOS 7.9 + Docker + Hexo + Nginx + Git"/>
+&lt;li&gt;CentOS 7.9 + Docker + Hexo + Nginx + Git&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h1 id=&#34;开始：&#34;&gt;&lt;a href=&#34;#开始：&#34; class=&#34;headerlink&#34; title=&#34;开始：&#34;&gt;&lt;/a&gt;开始：&lt;/h1&gt;"/>
     <script type="application/ld+json">
         {
-            "description": "&lt;h3 id=&#34;开篇&#34;&gt;&lt;a href=&#34;#开篇&#34; class=&#34;headerlink&#34; title=&#34;开篇&#34;&gt;&lt;/a&gt;开篇&lt;/h3&gt;&lt;pre&gt;&lt;code&gt;本文内容仅作为练手与折腾，也是结合网上大佬的经验分享进行整理！（看得再多，不如实践出真章）
-&lt;/code&gt;&lt;/pre&gt;
+            "description": "&lt;h3 id=&#34;开篇&#34;&gt;&lt;a href=&#34;#开篇&#34; class=&#34;headerlink&#34; title=&#34;开篇&#34;&gt;&lt;/a&gt;开篇&lt;/h3&gt;&lt;blockquote&gt;
+&lt;p&gt;本文内容仅作为练手与折腾，也是结合网上大佬的经验分享进行整理！（看得再多，不如实践出真章）&lt;/p&gt;
+&lt;/blockquote&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;h3 id=&#34;Docker：环境隔离、资源复用。&#34;&gt;&lt;a href=&#34;#Docker：环境隔离、资源复用。&#34; class=&#34;headerlink&#34; title=&#34;Docker：环境隔离、资源复用。&#34;&gt;&lt;/a&gt;Docker：环境隔离、资源复用。&lt;/h3&gt;&lt;/li&gt;
 &lt;li&gt;&lt;h3 id=&#34;Hexo：快速、简洁且高效的博客框架&#34;&gt;&lt;a href=&#34;#Hexo：快速、简洁且高效的博客框架&#34; class=&#34;headerlink&#34; title=&#34;Hexo：快速、简洁且高效的博客框架&#34;&gt;&lt;/a&gt;Hexo：快速、简洁且高效的博客框架&lt;/h3&gt;&lt;ul&gt;
@@ -111,7 +132,11 @@
 &lt;/li&gt;
 &lt;li&gt;&lt;p&gt;&lt;strong&gt;使用环境&amp;amp;应用&lt;/strong&gt;：&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;CentOS 7.9 + Docker + Hexo + Nginx + Git",
+&lt;li&gt;CentOS 7.9 + Docker + Hexo + Nginx + Git&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h1 id=&#34;开始：&#34;&gt;&lt;a href=&#34;#开始：&#34; class=&#34;headerlink&#34; title=&#34;开始：&#34;&gt;&lt;/a&gt;开始：&lt;/h1&gt;",
             "author": { "@type": "Person", "name": "啊些事" },
             "@type": "BlogPosting",
             "url": "https://weiduni.tk/2022/03/15/%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2Docker+Nginx+Hexo/index.html",
@@ -223,7 +248,7 @@
             <section class="inner">
                 <section class="inner-main">
                     <div class="post">
-    <article id="post-cl21moatd000j31o33hp07st2" class="article article-type-post" itemscope
+    <article id="post-cl22717gp000l6zo319a9c26l" class="article article-type-post" itemscope
     itemprop="blogPost">
 
     <div class="article-inner">
@@ -265,8 +290,9 @@
         </div>
 
         <div class="article-entry post-inner-html hairline" itemprop="articleBody">
-            <h3 id="开篇"><a href="#开篇" class="headerlink" title="开篇"></a>开篇</h3><pre><code>本文内容仅作为练手与折腾，也是结合网上大佬的经验分享进行整理！（看得再多，不如实践出真章）
-</code></pre>
+            <h3 id="开篇"><a href="#开篇" class="headerlink" title="开篇"></a>开篇</h3><blockquote>
+<p>本文内容仅作为练手与折腾，也是结合网上大佬的经验分享进行整理！（看得再多，不如实践出真章）</p>
+</blockquote>
 <ul>
 <li><h3 id="Docker：环境隔离、资源复用。"><a href="#Docker：环境隔离、资源复用。" class="headerlink" title="Docker：环境隔离、资源复用。"></a>Docker：环境隔离、资源复用。</h3></li>
 <li><h3 id="Hexo：快速、简洁且高效的博客框架"><a href="#Hexo：快速、简洁且高效的博客框架" class="headerlink" title="Hexo：快速、简洁且高效的博客框架"></a>Hexo：快速、简洁且高效的博客框架</h3><ul>
@@ -282,11 +308,12 @@
 </li>
 <li><p><strong>使用环境&amp;应用</strong>：</p>
 <ul>
-<li>CentOS 7.9 + Docker + Hexo + Nginx + Git <span id="more"></span></li>
+<li>CentOS 7.9 + Docker + Hexo + Nginx + Git</li>
 </ul>
 </li>
 </ul>
-<h1 id="开始："><a href="#开始：" class="headerlink" title="开始："></a>开始：</h1><ul>
+<h1 id="开始："><a href="#开始：" class="headerlink" title="开始："></a>开始：</h1><span id="more"></span>
+<ul>
 <li><h2 id="Dcoker-CE"><a href="#Dcoker-CE" class="headerlink" title="Dcoker-CE"></a><strong>Dcoker-CE</strong></h2><ul>
 <li>安装，国内服务器推荐使用 <a target="_blank" rel="noopener" href="https://developer.aliyun.com/mirror/">阿里巴巴开源镜像站</a><pre><code class="sh">######step1:安装必要的一些系统工具
 sudo yum install -y yum-utils device-mapper-persistent-data lvm2
@@ -439,9 +466,9 @@ root@b1b0d1107917:# hexo clean &amp;&amp; hexo g
 <nav class="article-nav">
   
   
-    <a href="/2022/01/31/%E6%B0%B4%E7%94%B5%E6%94%B9%E9%80%A0%E4%B9%8B%E7%AF%87%E4%BA%8C/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2022/02/10/Git%E7%9A%84%E4%BD%BF%E7%94%A8%E4%B8%8E%E7%A2%B0%E5%A3%81/" id="article-nav-older" class="article-nav-link-wrap">
       <div class="article-nav-caption">上一篇</div>
-      <div class="article-nav-title">水电改造之篇二</div>
+      <div class="article-nav-title">Git的使用与碰壁</div>
     </a>
   
 </nav>
@@ -523,6 +550,10 @@ root@b1b0d1107917:# hexo clean &amp;&amp; hexo g
           </li>
         
           <li>
+            <a href="/2022/02/10/Git%E7%9A%84%E4%BD%BF%E7%94%A8%E4%B8%8E%E7%A2%B0%E5%A3%81/">Git的使用与碰壁</a>
+          </li>
+        
+          <li>
             <a href="/2022/01/31/%E6%B0%B4%E7%94%B5%E6%94%B9%E9%80%A0%E4%B9%8B%E7%AF%87%E4%BA%8C/">水电改造之篇二</a>
           </li>
         
@@ -532,10 +563,6 @@ root@b1b0d1107917:# hexo clean &amp;&amp; hexo g
         
           <li>
             <a href="/2020/10/18/%E5%BE%80%E4%B8%8E%E8%BF%94%E4%B9%8B%E8%AF%9D%E6%9C%89%E7%82%B9%E5%A4%9A/">往与返之话有点多</a>
-          </li>
-        
-          <li>
-            <a href="/2020/07/20/%E6%B0%B4%E7%94%B5%E6%94%B9%E9%80%A0%E4%B9%8B%E7%AF%87%E4%B8%80/">水电改造之篇一</a>
           </li>
         
       </ul>
