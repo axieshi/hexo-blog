@@ -106,7 +106,7 @@ aomori_social:
   -
     icon: star
     type: 
-    url: https://user.qzone.qq.com/734330435
+    url: http://734330435.qzone.qq.com
 # Deployment
 ## Docs: https://hexo.io/docs/one-command-deployment
 deploy:
