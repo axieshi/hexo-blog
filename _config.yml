@@ -97,7 +97,7 @@ ignore:
 # Extensions
 ## Plugins: https://hexo.io/plugins/
 ## Themes: https://hexo.io/themes/
-theme: hexo-theme-aomori
+theme: aomori
 aomori_logo_typed_animated: true
 aomori_menu:
   Home: /
@@ -112,4 +112,4 @@ aomori_social:
 deploy:
   type: git
   repo: https://github.com/axieshi/hexo-blog.git
-  branch: maste
+  branch: master
